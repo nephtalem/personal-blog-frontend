@@ -1,25 +1,60 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+
+import Landing from "./pages/Landing";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import HomeLayout from "./pages/HomeLayout";
+import { AuthProvider } from "./context/AuthContext";
+import Error from "./pages/Error";
+import CreatePost from "./pages/CreatePost";
+import PostPage from "./pages/PostPage";
+import EditPost from "./pages/EditPost";
+import SingleErrorPage from "./pages/SingleErrorPage";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <HomeLayout />,
+    errorElement: <Error />,
+    children: [
+      {
+        path: "/",
+        element: <Landing />,
+        index: true,
+        // errorElement: <SingleErrorPage />,
+      },
+      {
+        path: "login",
+        element: <Login />,
+        // errorElement: <SingleErrorPage />,
+      },
+      {
+        path: "register",
+        element: <Register />,
+        // errorElement: <SingleErrorPage />,
+      },
+      {
+        path: "create",
+        element: <CreatePost />,
+        // errorElement: <SingleErrorPage />,
+      },
+      {
+        path: "post/:id",
+        element: <PostPage />,
+        // errorElement: <SingleErrorPage />,
+      },
+      {
+        path: "edit/:id",
+        element: <EditPost />,
+        // errorElement: <SingleErrorPage />,
+      },
+    ],
+  },
+]);
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return <RouterProvider router={router}></RouterProvider>;
 }
 
 export default App;
